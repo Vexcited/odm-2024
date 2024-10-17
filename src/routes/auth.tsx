@@ -1,4 +1,4 @@
-import { createSignal, Show } from "solid-js";
+import { createEffect, createSignal, Show } from "solid-js";
 import Field from "~/components/atoms/field";
 import Title from "~/meta/title";
 import auth from "~/stores/auth";
@@ -6,6 +6,11 @@ import { useNavigate } from "@solidjs/router";
 
 export default function AuthPage () {
   const navigate = useNavigate();
+
+  createEffect(() => {
+    if (auth.isAuthenticated)
+      navigate("/profile/compte");
+  });
 
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
