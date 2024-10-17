@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    
+    "types": [
+      "vinxi/types/client",
+      "unplugin-icons/types/solid"
+    ],
+
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "scripts", "app.config.ts", "eslint.config.cjs", "uno.config.ts"],
+  "exclude": ["node_modules"]
+}
