@@ -1,2 +1,7 @@
 import mongoose from "mongoose";
-export const assertMongoConnection = () => mongoose.connect("mongodb://localhost:27017/worldskills-travel");
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI)
+  throw new Error("Vous n'avez pas défini MONGODB_URI dans le fichier .env");
+
+export const assertMongoConnection = () => mongoose.connect(MONGODB_URI);
