@@ -98,7 +98,13 @@ export default createRoot(() => {
       return state.token !== null;
     },
 
+    get email (): string | null {
+      return state.email;
+    },
+
+    handleKyErrors,
     identify,
-    logout
+    logout,
+    http
   };
 });

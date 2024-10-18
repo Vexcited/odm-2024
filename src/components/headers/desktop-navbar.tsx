@@ -18,13 +18,13 @@ const DesktopNavbar: Component = () => {
         </a>
         <Show when={auth.isAuthenticated}
           fallback={
-            <a href="/auth" class="text-[#1D52A0] font-600">
+            <a href="/auth" class="text-#1D52A0 font-600">
               mon profil
             </a>
           }
         >
           <div class="flex flex-col">
-            <a href="/profile" class="text-[#1D52A0] font-600">
+            <a href="/profile" class="text-#1D52A0 font-600">
               {auth.fullName}
             </a>
           </div>

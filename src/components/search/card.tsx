@@ -1,16 +1,16 @@
 import { type Component } from "solid-js";
-import type { APIResponseSearchItem } from "~/types/search";
+import type { APITripItem } from "~/types/trip";
 
-const SearchCard: Component<APIResponseSearchItem> = (trip) => {
+const SearchCard: Component<APITripItem> = (trip) => {
   return (
-    <div class="bg-white relative flex h-250px w-fit border-2 rounded-3xl md:hover:(scale-105 rotate-1 shadow-lg) transition-all">
+    <div class="bg-white relative flex flex-col md:(flex-row h-250px w-fit) border-2 rounded-3xl md:hover:(scale-105 rotate-1 shadow-lg) transition-all">
       {/* encoche à gauche */}
-      <div class="h-8 w-8 bg-white border-2 rounded-full absolute -left-4 inset-y-0 my-auto" />
-      <div class="h-8 w-8 bg-white rounded-full absolute -left-6 inset-y-0 my-auto" />
+      <div class="hidden md:block h-8 w-8 bg-white border-2 rounded-full absolute -left-4 inset-y-0 my-auto" />
+      <div class="hidden md:block h-8 w-8 bg-white rounded-full absolute -left-6 inset-y-0 my-auto" />
 
-      <img class="w-300px h-full object-cover rounded-l-xl" src={`/cdn/${trip.previewImage}`} />
-      <div class="w-320px flex flex-col justify-between p-4">
-        <div class="">
+      <img class="w-full max-h-400px max-w-320px sm:max-w-400px object-cover rounded-xl md:(rounded-r-0 w-300px)" src={`/cdn/${trip.previewImage}`} />
+      <div class="max-w-320px sm:max-w-400px w-full flex flex-col justify-between gap-6 p-4">
+        <div>
           <div class="flex justify-between gap-4">
             <h2 class="font-500 text-xl line-height-tight">
               {trip.title}
@@ -38,8 +38,8 @@ const SearchCard: Component<APIResponseSearchItem> = (trip) => {
       </div>
 
       {/* encoche à droite */}
-      <div class="h-8 w-8 bg-white border-2 rounded-full absolute -right-4 inset-y-0 my-auto" />
-      <div class="h-8 w-8 bg-white rounded-full absolute -right-6 inset-y-0 my-auto" />
+      <div class="hidden md:block h-8 w-8 bg-white border-2 rounded-full absolute -right-4 inset-y-0 my-auto" />
+      <div class="hidden md:block h-8 w-8 bg-white rounded-full absolute -right-6 inset-y-0 my-auto" />
     </div>
   );
 };

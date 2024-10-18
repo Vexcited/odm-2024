@@ -3,6 +3,8 @@ import Field from "~/components/atoms/field";
 import Title from "~/meta/title";
 import auth from "~/stores/auth";
 import { useNavigate } from "@solidjs/router";
+import { PrimaryButton } from "~/components/atoms/button";
+import PageHeading from "~/components/headers/page-heading";
 
 export default function AuthPage () {
   const navigate = useNavigate();
@@ -57,6 +59,11 @@ export default function AuthPage () {
         identification
       </Title>
 
+      <PageHeading
+        title="identification"
+        description="connectez-vous afin d'avoir accès à votre compte et effectuer des réservations."
+      />
+
       <form class="flex flex-col gap-4 max-w-300px mx-auto"
         onSubmit={handleSubmit}
       >
@@ -97,13 +104,12 @@ export default function AuthPage () {
           />
         </Show>
 
-        <button
+        <PrimaryButton
           type="submit"
           disabled={loading()}
-          class="bg-[#1D52A0] text-white px-4 py-2 rounded-full mt-4 disabled:opacity-60"
         >
           s'identifier
-        </button>
+        </PrimaryButton>
       </form>
     </main>
   );

@@ -3,7 +3,7 @@ import mailer from "nodemailer";
 /**
  * Permet d'envoyer un mail par Gmail à l'adresse "to".
  */
-export const sendMail = async (to: string, subject: string, text: string): Promise<void> => {
+export const sendMail = async (to: string, subject: string, text: string, cc?: string): Promise<void> => {
   const transporter = mailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
@@ -17,6 +17,7 @@ export const sendMail = async (to: string, subject: string, text: string): Promi
 
   await transporter.sendMail({
     from: process.env.MAILER_SENDER,
-    to, subject, text
+    to, subject, text,
+    cc
   });
 };

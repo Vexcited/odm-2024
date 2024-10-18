@@ -1,8 +1,4 @@
-import type { ITrip } from "~/models/trip";
 import type { APIResponse } from "./response";
+import type { APITripItem } from "./trip";
 
-export type APIResponseSearchItem = ITrip & {
-  _id: string
-};
-
-export type APIResponseSearch = APIResponse<Array<APIResponseSearchItem>>;
+export type APIResponseSearch = APIResponse<Array<APITripItem>>;

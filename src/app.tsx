@@ -8,26 +8,28 @@ import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 
-import DesktopNavbar from "./components/headers/desktop-navbar";
+import Navbar from "./components/headers/navbar";
 import { MetaProvider } from "@solidjs/meta";
+import Footer from "./components/molecules/footer";
 import Title from "./meta/title";
+import { Toaster } from "solid-toast";
 
 export default function App() {
   return (
     <Router
       root={(props) => (
-        <>
-          <MetaProvider>
-            <Title>worldskills — travel</Title>
+        <MetaProvider>
+          <Title />
+          <Toaster />
 
-            <header>
-              <DesktopNavbar />
-            </header>
-            <Suspense>
-              {props.children}
-            </Suspense>
-          </MetaProvider>
-        </>
+          <Navbar />
+
+          <Suspense>
+            {props.children}
+          </Suspense>
+
+          <Footer />
+        </MetaProvider>
       )}
     >
       <FileRoutes />

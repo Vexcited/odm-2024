@@ -1,9 +1,12 @@
+import { createMediaQuery } from "@solid-primitives/media";
 import { type RouteSectionProps, useMatch, useNavigate } from "@solidjs/router";
 import { createEffect, createRenderEffect, Show, type FlowComponent } from "solid-js";
+import { DangerButton } from "~/components/atoms/button";
 import auth from "~/stores/auth";
 
 export default function ProfilePage (props: RouteSectionProps) {
   const navigate = useNavigate();
+  const isTablet = createMediaQuery("(max-width: 767px)");
 
   createEffect(() => {
     if (!auth.isAuthenticated)
@@ -34,9 +37,9 @@ export default function ProfilePage (props: RouteSectionProps) {
 
   return (
     <Show when={!auth.loading && auth.isAuthenticated}>
-      <div class="flex gap-8 mx-auto px-10">
+      <div class="relative flex gap-8 mx-auto px-10">
         {/* barre de navigation */}
-        <div class="w-260px flex-shrink-0 flex flex-col gap-2 h-screen sticky top-0">
+        <div class="sticky top-0 sm:w-178px md:w-260px flex-shrink-0 flex flex-col gap-2">
           <Link
             href="/profile/compte"
           >
@@ -48,16 +51,16 @@ export default function ProfilePage (props: RouteSectionProps) {
             mes réservations
           </Link>
 
-          <button
+          <DangerButton
             type="button"
-            class="mt-6 text-gray-800 hover:(bg-red/20 text-#561010) text-left font-500 w-full px-4 py-2 rounded-full transition-colors"
             onClick={handleLogout}
+            class="w-full text-left mt-6"
           >
             se déconnecter
-          </button>
+          </DangerButton>
         </div>
 
-        <div class="w-full">
+        <div class="w-full min-h-screen">
           {props.children}
         </div>
       </div>

@@ -1,8 +1,10 @@
 import { json } from "~/server/response";
 
-export const handleError = (error: any): Response => {
-  if (error instanceof Response) return error;
-  return error(error.message || "une erreur inconnue est survenue.");
+export const handleError = (err: any): Response => {
+  if (err instanceof Response) return err;
+
+  console.error(err);
+  return error(err.message || "une erreur inconnue est survenue.");
 };
 
 
