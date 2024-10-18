@@ -29,7 +29,7 @@ const Field: Component<{
         required={props.required}
         placeholder={props.placeholder}
         inputmode={props.digits ? "numeric" : void 0}
-        class="bg-gray/15 rounded-full px-5 py-1.5 w-full"
+        class="bg-gray/15 rounded-full px-5 py-1.5 w-full outline-#1D52A0"
       />
     </TextField>
   );
