@@ -4,6 +4,8 @@ import type { Component } from "solid-js";
 const Field: Component<{
   /** @default "text" */
   type?: "text" | "password" | "email"
+  /** Permet d'afficher uniquement le pavé numérique au clavier sur mobile. */
+  digits?: boolean
 
   label: string
   placeholder?: string
@@ -26,6 +28,7 @@ const Field: Component<{
         type={props.type}
         required={props.required}
         placeholder={props.placeholder}
+        inputmode={props.digits ? "numeric" : void 0}
         class="bg-gray/15 rounded-full px-5 py-1.5 w-full"
       />
     </TextField>

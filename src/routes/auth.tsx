@@ -14,7 +14,9 @@ export default function AuthPage () {
 
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
+  const [otp, setOTP] = createSignal("");
 
+  const [showOTP, setShowOTP] = createSignal(false);
   const [loading, setLoading] = createSignal(false);
   const [error, setError] = createSignal<string | null>(null);
 
@@ -28,11 +30,16 @@ export default function AuthPage () {
     setError(null);
 
     try {
-      await auth.identify(email(), password());
+      await auth.identify(email(), password(), otp());
       navigate("/");
     }
     catch (error) {
       if (error instanceof Error) {
+        // TODO: faire un field spécial pour éviter cette vérification douteuse
+        if (error.message.includes("OTP a été envoyé")) {
+          setShowOTP(true);
+        }
+
         setError(error.message);
       }
       else {
@@ -63,20 +70,32 @@ export default function AuthPage () {
           )}
         </Show>
 
-        <Field
-          type="email"
-          label="votre adresse e-mail"
-          value={email()}
-          onUpdate={setEmail}
-          placeholder="john.doe@worldskills.fr"
-        />
+        <Show when={!showOTP()}>
+          <Field
+            type="email"
+            label="votre adresse e-mail"
+            value={email()}
+            onUpdate={setEmail}
+            placeholder="john.doe@worldskills.fr"
+          />
 
-        <Field
-          type="password"
-          label="mot de passe"
-          value={password()}
-          onUpdate={setPassword}
-        />
+          <Field
+            type="password"
+            label="mot de passe"
+            value={password()}
+            onUpdate={setPassword}
+          />
+        </Show>
+
+        <Show when={showOTP()}>
+          <Field
+            digits
+            type="text"
+            label="OTP"
+            value={otp()}
+            onUpdate={setOTP}
+          />
+        </Show>
 
         <button
           type="submit"

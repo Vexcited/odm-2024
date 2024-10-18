@@ -8,6 +8,7 @@ import ky, { HTTPError } from "ky";
 
 export default createRoot(() => {
   const [state, setState] = createStore({
+    loading: true,
     token: localStorage.getItem("token"),
 
     email: null as string | null,
@@ -21,9 +22,10 @@ export default createRoot(() => {
   });
 
   onMount(async () => {
-    if (!state.token) return;
-
     try {
+      if (!state.token) return;
+      setState("loading", true);
+
       const response = await http()
         .get("/api/check")
         .json<APIResponseCheck>();
@@ -38,6 +40,9 @@ export default createRoot(() => {
     }
     catch {
       logout();
+    }
+    finally {
+      setState("loading", false);
     }
   });
 
@@ -55,11 +60,11 @@ export default createRoot(() => {
     throw error;
   };
 
-  const identify = async (email: string, password: string): Promise<void> => {
+  const identify = async (email: string, password: string, otp?: string): Promise<void> => {
     try {
-      const response = await http()
+      const response = await ky
         .post("/api/auth", {
-          json: { email, password }
+          json: { email, password, otp }
         })
         .json<APIResponseAuth>();
 
@@ -77,6 +82,10 @@ export default createRoot(() => {
   };
 
   return {
+    get loading (): boolean {
+      return state.loading;
+    },
+
     get fullName (): string | null {
       return state.fullName
         // sinon on retourne la partie avant le @ du mail

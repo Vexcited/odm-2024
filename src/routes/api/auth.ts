@@ -7,10 +7,14 @@ import { getUser, tokenizeUser } from "~/server/users";
 import bcrypt from "bcryptjs";
 import { User } from "~/models/user";
 import validator from "validator";
+import { sendMail } from "~/server/mail";
+import { generateOTP } from "~/server/otp";
+import { OTP } from "~/models/otp";
 
 export async function POST ({ request }: APIEvent) {
   try {
     const body = await readJSON<{
+      otp?: string
       email: string
       password: string
     }>(request);
@@ -29,10 +33,38 @@ export async function POST ({ request }: APIEvent) {
       const passwordMatches = await bcrypt.compare(body.password, user.password);
 
       if (!passwordMatches)
-        return error("le mot de passe est incorrect", 403);
+        return error("le mot de passe est incorrect", 401);
     }
     // l'utilisateur n'existe pas, on va lui créer un compte.
     else {
+      if (!body.otp) {
+        const otp = generateOTP();
+
+        const otpEntry = new OTP({
+          email: body.email,
+          otp
+        });
+
+        await otpEntry.save();
+        await sendMail(
+          body.email,
+          "Code OTP pour Worldskills Travel",
+          `Pour continuer votre inscription, veuillez entrer le code suivant : ${otp}`
+        );
+
+        return error("un code OTP a été envoyé, veuillez le renseigner", 403);
+      }
+      else {
+        const otpEntry = await OTP.findOne({ email: body.email })
+          .sort({ createdAt: -1 })
+          .limit(1);
+
+        // on vérifie la validité du code otp entré
+        if (!otpEntry || otpEntry.otp !== body.otp) {
+          return error("OTP invalide", 404);
+        }
+      }
+
       const hashedPassword = await bcrypt.hash(body.password, 10);
 
       const model = new User({
