@@ -1,5 +1,5 @@
 import { type RouteSectionProps, useMatch, useNavigate } from "@solidjs/router";
-import { createEffect, createRenderEffect, type FlowComponent } from "solid-js";
+import { createEffect, createRenderEffect, Show, type FlowComponent } from "solid-js";
 import auth from "~/stores/auth";
 
 export default function ProfilePage (props: RouteSectionProps) {
@@ -33,32 +33,34 @@ export default function ProfilePage (props: RouteSectionProps) {
   };
 
   return (
-    <div class="flex gap-8 mx-auto px-10">
-      {/* barre de navigation */}
-      <div class="w-260px flex-shrink-0 flex flex-col gap-2 h-screen sticky top-0">
-        <Link
-          href="/profile/compte"
-        >
-          mon compte
-        </Link>
-        <Link
-          href="/profile/reservations"
-        >
-          mes réservations
-        </Link>
+    <Show when={!auth.loading && auth.isAuthenticated}>
+      <div class="flex gap-8 mx-auto px-10">
+        {/* barre de navigation */}
+        <div class="w-260px flex-shrink-0 flex flex-col gap-2 h-screen sticky top-0">
+          <Link
+            href="/profile/compte"
+          >
+            mon compte
+          </Link>
+          <Link
+            href="/profile/reservations"
+          >
+            mes réservations
+          </Link>
 
-        <button
-          type="button"
-          class="mt-6 text-gray-800 hover:(bg-red/20 text-#561010) text-left font-500 w-full px-4 py-2 rounded-full transition-colors"
-          onClick={handleLogout}
-        >
-          se déconnecter
-        </button>
-      </div>
+          <button
+            type="button"
+            class="mt-6 text-gray-800 hover:(bg-red/20 text-#561010) text-left font-500 w-full px-4 py-2 rounded-full transition-colors"
+            onClick={handleLogout}
+          >
+            se déconnecter
+          </button>
+        </div>
 
-      <div class="w-full">
-        {props.children}
+        <div class="w-full">
+          {props.children}
+        </div>
       </div>
-    </div>
+    </Show>
   );
 };
