@@ -5,11 +5,11 @@ const PageHeading: Component<{
   description: string
 }> = (props) => {
   return (
-    <div>
-      <h1>
+    <div class="max-w-600px mx-auto mt-4 pb-6 mb-8 border-b">
+      <h1 class="text-2xl font-600">
         {props.title}
       </h1>
-      <p>
+      <p class="text-lg">
         {props.description}
       </p>
     </div>
