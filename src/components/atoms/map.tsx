@@ -19,7 +19,13 @@ const Map: Component<{
       attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
     }).addTo(map);
 
-    L.marker(position).addTo(map);
+    const icon = L.icon({
+      iconUrl: "/map-marker.png",
+      iconSize: [20, 20],
+      iconAnchor: [0, 0]
+    });
+
+    L.marker(position, { icon }).addTo(map);
 
     onCleanup(() => {
       map.remove();
