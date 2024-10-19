@@ -20,12 +20,12 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
   - [x] Vérification de la validité de l'adresse e-mail
   - [x] Mot de passe >= 8 caractères (bonnes pratiques)
 - [x] Connexion
-- [ ] Suppression de son compte
-  - [ ] Entraine la suppression de toutes les réservations effectuées
+- [x] Suppression de son compte
+  - [x] Entraine la suppression de toutes les réservations effectuées
 - [x] Réservation entre deux dates
   - [x] Vérification de la disponibilité
 - [x] Liste des réservations effectuées par l'utilisateur
-- [ ] Annulation d'une réservation 
+- [x] Annulation d'une réservation 
 - [x] Recherche de séjours disponibles
   - [x] Filtrer par pays
   - [x] Filtrer par ville
@@ -33,7 +33,7 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
   - [x] Filtrer par nombre de personnes
   - [x] Filtrer par prix
   - [x] Filtrer par environnement (campagne, ville, ...)
-- [x] Affichage des détails d'un séjour 
+- [x] Affichage des détails d'un séjour
 
 ## Ce qu'il reste à faire
 

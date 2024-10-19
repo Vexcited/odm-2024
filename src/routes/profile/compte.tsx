@@ -1,5 +1,6 @@
 import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
+import toast from "solid-toast";
 import { DangerButton, PrimaryButton } from "~/components/atoms/button";
 import Field from "~/components/atoms/field";
 import Title from "~/meta/title";
@@ -10,6 +11,7 @@ export default function ProfileAccountPage () {
 
   const [fullName, setFullName] = createSignal(auth.fullName ?? "");
   const [email, setEmail] = createSignal(auth.email ?? "");
+  const [loading, setLoading] = createSignal(false);
 
   const saveInformations = async (event: SubmitEvent): Promise<void> => {
     event.preventDefault();
@@ -17,10 +19,24 @@ export default function ProfileAccountPage () {
   };
 
   const deleteAccount = async (): Promise<void> => {
+    try {
+      setLoading(true);
 
+      const response = await auth.http()
+        .delete("/api/profile/account")
+        .json<{ success: boolean }>();
+
+      if (response.success) logout();
+      else {
+        toast.error("une erreur s'est produite lors de la suppression de votre compte");
+      }
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
-  const handleLogout = () => {
+  const logout = () => {
     auth.logout();
     navigate("/");
   };
@@ -74,16 +90,18 @@ export default function ProfileAccountPage () {
           <div class="flex flex-col gap-4">
             <DangerButton
               type="button"
+              disabled={loading()}
               onClick={deleteAccount}
-              class="bg-red/20 text-#561010"
+              class="bg-red/20 text-#561010 disabled:opacity-80"
             >
               supprimer mon compte
             </DangerButton>
 
             <DangerButton
               type="button"
-              onClick={handleLogout}
-              class="mt-6 md:hidden"
+              disabled={loading()}
+              onClick={logout}
+              class="mt-6 md:hidden disabled:opacity-80"
             >
               se déconnecter
             </DangerButton>

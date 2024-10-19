@@ -1,5 +1,5 @@
 import type { APIEvent } from "@solidjs/start/server";
-import { Booking as Booking } from "~/models/booking";
+import { Booking } from "~/models/booking";
 import { error, handleError } from "~/server/errors";
 import { sendMail } from "~/server/mail";
 import { readBearer, readJSON } from "~/server/request";
