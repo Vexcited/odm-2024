@@ -25,7 +25,7 @@ export async function POST ({ request }: APIEvent) {
     };
 
     if (body.amountOfPeople < 1) {
-      return error("le nombre de personnes doit être supérieur ou égal à 1");
+      return error("le nombre de personnes doit être supérieur ou égal à 1", 400);
     }
     else { // on vérifie qu'il y a autant de lits que de personnes
       parameters.amountOfBedrooms = {

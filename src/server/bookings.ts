@@ -32,7 +32,7 @@ export const parseBookingPeriod = (_from: string, _to: string): [from: Date, to:
   setDateToMidnight(to);
 
   if (from.getTime() === to.getTime())
-    throw error("la date de début est la même que celle de fin");
+    throw error("la date de début est la même que celle de fin", 400);
 
   return [from, to];
 };
