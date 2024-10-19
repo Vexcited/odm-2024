@@ -9,7 +9,7 @@ import Title from "~/meta/title";
 import auth from "~/stores/auth";
 
 export default function ContactPage () {
-  const [name, setName] = createSignal("");
+  const [name, setName] = createSignal(auth.fullName ?? "");
   const [email, setEmail] = createSignal(auth.email ?? "");
   const [message, setMessage] = createSignal("");
   const [loading, setLoading] = createSignal(false);
@@ -79,6 +79,7 @@ export default function ContactPage () {
             contenu du message
           </TextField.Label>
           <TextField.TextArea
+            placeholder="Bonjour, ..."
             class="bg-gray/15 rounded-2xl px-5 py-1.5 w-full outline-#1D52A0 min-h-50"
           />
         </TextField>
