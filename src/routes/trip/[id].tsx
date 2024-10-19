@@ -131,15 +131,15 @@ export default function TripDetailsPage () {
               {trip().title.toLowerCase()}
             </Title>
 
-            <div class="flex gap-12 flex-col tb:flex-row sm:px-6">
+            <div class="flex gap-12 flex-col tb:flex-row px-6">
               <img
-                class="flex-shrink-0 w-fit mx-auto tb:(max-w-400px h-500px -rotate-1 scale-105 object-cover)  border-2 border-white shadow-xl rounded-2xl"
+                class="flex-shrink-0 w-fit mx-auto tb:(max-w-400px h-500px -rotate-1 scale-105 object-cover border-2 border-white shadow-xl) rounded-2xl"
                 src={`/cdn/${trip().previewImage}`}
                 alt={trip().title}
               />
 
               <Map
-                class="w-full h-250px md:h-500px flex-grow relative sm:rounded-2xl z-5"
+                class="w-full h-250px md:h-500px flex-grow relative rounded-2xl z-5"
                 latitude={trip().latitude}
                 longitude={trip().longitude}
               />
@@ -148,10 +148,10 @@ export default function TripDetailsPage () {
             <div class="flex flex-col tb:flex-row justify-between sm:px-6 gap-12">
               <div class="px-6 sm:px-0">
                 <div class="flex flex-col w-full">
-                  <h1 class="text-4xl font-500">
+                  <h1 class="text-2xl md:text-4xl font-500">
                     {trip().title}
                   </h1>
-                  <div class="flex flex-wrap mt-3 sm:mt-0 line-height-tight items-center gap-2 opacity-90">
+                  <div class="text-sm md:text-base flex flex-wrap mt-3 sm:mt-0 line-height-tight items-center gap-2 opacity-90">
                     <p>{trip().city}</p>
                     <BulletPoint />
                     <p>{trip().country}</p>
@@ -161,7 +161,7 @@ export default function TripDetailsPage () {
                     <p>En {environmentTypeToString(trip().environment)}</p>
                   </div>
 
-                  <p class="mt-4 text-lg">
+                  <p class="mt-4 md:text-lg">
                     {trip().description}
                   </p>
                 </div>

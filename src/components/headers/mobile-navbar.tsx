@@ -1,12 +1,26 @@
-import { type Component } from "solid-js";
+import { FlowComponent, type Component } from "solid-js";
 import { Portal } from "solid-js/web";
 import LongLogo from "~/assets/long-logo";
 import auth from "~/stores/auth";
 import MdiAccountCircle from "~icons/mdi/account-circle";
 import MdiMessage from "~icons/mdi/message";
 import MdiHomeSearch from "~icons/mdi/home-search";
+import { useLocation } from "@solidjs/router";
 
 const MobileNavbar: Component = () => {
+  const location = useLocation();
+  const path = () => location.pathname;
+
+  const Link: FlowComponent<{ href: string }> = (props) => (
+    <a href={props.href} class="flex flex-col items-center w-86px py-2 rounded-xl"
+      classList={{
+        "bg-gray-100 text-#1D52A0 font-500": path().includes(props.href)
+      }}
+    >
+      {props.children}
+    </a>
+  );
+
   return (
     <>
       <div class="flex flex-col items-center justify-center px-10 py-6">
@@ -17,25 +31,25 @@ const MobileNavbar: Component = () => {
 
       <Portal>
         <div class="fixed bottom-0 inset-x-0 h-75px z-20">
-          <nav class="flex justify-center py-4 items-center gap-6 text-lg bg-white border-t">
-            <div class="flex flex-col items-center w-72px">
+          <nav class="flex justify-center py-2 items-center gap-3 sm:gap-6 text-lg bg-white border-t">
+            <Link href="/nous-contacter">
               <MdiMessage />
-              <a href="/nous-contacter" class="text-sm">
+              <span class="text-sm">
                 contacter
-              </a>
-            </div>
-            <div class="flex flex-col items-center w-72px">
+              </span>
+            </Link>
+            <Link href="/search">
               <MdiHomeSearch />
-              <a href="/search" class="text-sm">
+              <span class="text-sm">
                 rechercher
-              </a>
-            </div>
-            <div class="flex flex-col items-center w-72px">
+              </span>
+            </Link>
+            <Link href={auth.isAuthenticated ? "/profile" : "/auth"}>
               <MdiAccountCircle />
-              <a href={auth.isAuthenticated ? "/profile" : "/auth"} class="text-sm">
+              <span class="text-sm">
                 moi
-              </a>
-            </div>
+              </span>
+            </Link>
           </nav>
         </div>
       </Portal>
