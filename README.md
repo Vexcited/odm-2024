@@ -39,11 +39,6 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
 
 Concernant l'API, il n'y a pas d'OpenAPI disponible, cependant un export [Hoppscotch](https://hoppscotch.io/) est disponible dans le fichier [api.hoppscotch.json](./api.hoppscotch.json). Des identifiants et tokens de démonstration y sont déposés, n'hésitez pas à les changer lors d'une nouvelle authentification.
 
-## Ce qu'il reste à faire
-
-- [ ] `favicon.ico` et `favicon.svg`
-- [ ] Transposition de la charte graphique vers Figma
-
 ## Développement
 
 ```bash
