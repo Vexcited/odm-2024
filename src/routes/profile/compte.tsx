@@ -5,17 +5,37 @@ import { DangerButton, PrimaryButton } from "~/components/atoms/button";
 import Field from "~/components/atoms/field";
 import Title from "~/meta/title";
 import auth from "~/stores/auth";
+import { APIResponse } from "~/types/response";
 
 export default function ProfileAccountPage () {
   const navigate = useNavigate();
 
   const [fullName, setFullName] = createSignal(auth.fullName ?? "");
-  const [email, setEmail] = createSignal(auth.email ?? "");
   const [loading, setLoading] = createSignal(false);
 
   const saveInformations = async (event: SubmitEvent): Promise<void> => {
     event.preventDefault();
+    if (!fullName()) return;
 
+    try {
+      setLoading(true);
+
+      const response = await auth.http()
+        .patch("/api/profile/account", {
+          json: { fullName: fullName() }
+        })
+        .json<APIResponse<{}>>();
+
+      if (response.success) {
+        auth.fullName = fullName();
+      }
+    }
+    catch (e) {
+      auth.handleKyErrors(e);
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
   const deleteAccount = async (): Promise<void> => {
@@ -24,12 +44,13 @@ export default function ProfileAccountPage () {
 
       const response = await auth.http()
         .delete("/api/profile/account")
-        .json<{ success: boolean }>();
+        .json<APIResponse<{}>>();
 
       if (response.success) logout();
-      else {
-        toast.error("une erreur s'est produite lors de la suppression de votre compte");
-      }
+      else throw new Error();
+    }
+    catch {
+      toast.error("une erreur s'est produite lors de la suppression de votre compte");
     }
     finally {
       setLoading(false);
@@ -63,13 +84,14 @@ export default function ProfileAccountPage () {
               value={fullName()}
               onUpdate={setFullName}
             />
+
             <Field
               disabled
               type="email"
               label="votre adresse e-mail"
               placeholder="john.doe@worldskills.fr"
-              value={email()}
-              onUpdate={setEmail}
+              value={auth.email ?? ""}
+              onUpdate={() => void 0}
               required
             />
 

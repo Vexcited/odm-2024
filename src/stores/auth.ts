@@ -94,6 +94,10 @@ export default createRoot(() => {
         ?? null;
     },
 
+    set fullName (value: string) {
+      setState("fullName", value);
+    },
+
     get isAuthenticated (): boolean {
       return state.token !== null;
     },

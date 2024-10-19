@@ -34,15 +34,14 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
   - [x] Filtrer par prix
   - [x] Filtrer par environnement (campagne, ville, ...)
 - [x] Affichage des détails d'un séjour
+- [x] Affichage des erreurs (via un toast)
+- [x] Personnalisation du nom de l'utilisateur dans le profil
 
 ## Ce qu'il reste à faire
 
-- [ ] Affichage des potentielles erreurs (via le `toaster` implémenté)
 - [ ] `favicon.ico` et `favicon.svg`
 - [ ] `robots.txt`
-- [ ] `<meta>` (SEO)
 - [ ] Transposition de la charte graphique vers Figma
-- [ ] Modification de son nom complet dans le profil utilisateur
 
 ## Développement
 

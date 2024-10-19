@@ -3,9 +3,35 @@ import { Booking } from "~/models/booking";
 import { User } from "~/models/user";
 import { error, handleError } from "~/server/errors";
 import { sendMail } from "~/server/mail";
-import { readBearer } from "~/server/request";
+import { readBearer, readJSON } from "~/server/request";
 import { json } from "~/server/response";
 import { untokenizeUser } from "~/server/users";
+
+export async function PATCH ({ request }: APIEvent) {
+  try {
+    const token = readBearer(request);
+    if (!token)
+      return error("vous n'êtes pas authentifié", 401);
+
+    const user = await untokenizeUser(token);
+    if (!user)
+      return error("l'utilisateur renseigné n'existe pas, ou le token est invalide", 403);
+
+    const body = await readJSON<{ fullName: string }>(request);
+
+    await User.findOneAndUpdate({ email: user.email }, {
+      // le nom n'est pas une propriété requise
+      // donc on peut se permettre de void 0
+      fullName: body.fullName.trim() || void 0
+    });
+
+    return json({ success: true });
+  }
+  catch (error) {
+    return handleError(error);
+  }
+}
+
 
 export async function DELETE ({ request }: APIEvent) {
   try {
