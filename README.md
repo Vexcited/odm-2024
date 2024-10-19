@@ -40,7 +40,6 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
 ## Ce qu'il reste à faire
 
 - [ ] `favicon.ico` et `favicon.svg`
-- [ ] `robots.txt`
 - [ ] Transposition de la charte graphique vers Figma
 
 ## Développement
