@@ -1,15 +1,15 @@
 import { createResource, For, Show } from "solid-js";
-import ReservationCard from "~/components/profile/reservation-card";
+import BookingCard from "~/components/profile/booking-card";
 import Title from "~/meta/title";
 import auth from "~/stores/auth";
-import type { APIResponseProfileReservations } from "~/types/profile";
+import type { APIResponseProfileBookings } from "~/types/profile";
 
 export default function ProfileAccountPage () {
-  const [reservations, { refetch }] = createResource(async () => {
+  const [bookings] = createResource(async () => {
     try {
       const response = await auth.http()
-        .get("/api/profile/reservations")
-        .json<APIResponseProfileReservations>();
+        .get("/api/profile/bookings")
+        .json<APIResponseProfileBookings>();
 
       if (!response.success) throw new Error(response.error);
       return response.data;
@@ -31,9 +31,9 @@ export default function ProfileAccountPage () {
         </h2>
 
         <div class="flex flex-col gap-8">
-          <Show when={!reservations.loading}>
-            <For each={reservations()}>
-              {(reservation) => <ReservationCard {...reservation} />}
+          <Show when={!bookings.loading}>
+            <For each={bookings()}>
+              {(booking) => <BookingCard {...booking} />}
             </For>
           </Show>
         </div>

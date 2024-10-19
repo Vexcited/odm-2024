@@ -1,4 +1,4 @@
-import type { IReservation } from "~/models/reservation";
+import type { IBooking } from "~/models/booking";
 import type { APIResponse } from "./response";
 
-export type APIResponseProfileReservations = APIResponse<Array<IReservation>>;
+export type APIResponseProfileBookings = APIResponse<Array<IBooking>>;

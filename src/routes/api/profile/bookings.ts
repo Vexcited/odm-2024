@@ -1,5 +1,5 @@
 import type { APIEvent } from "@solidjs/start/server";
-import { Reservation } from "~/models/reservation";
+import { Booking as Booking } from "~/models/booking";
 import { error, handleError } from "~/server/errors";
 import { readBearer } from "~/server/request";
 import { json } from "~/server/response";
@@ -15,12 +15,12 @@ export async function GET ({ request }: APIEvent) {
     if (!user)
       return error("l'utilisateur renseigné n'existe pas, ou le token est invalide", 403);
 
-    const reservations = await Reservation.find({ user })
+    const bookings = await Booking.find({ user })
       .populate("trip");
 
     return json({
       success: true,
-      data: reservations
+      data: bookings
     });
   }
   catch (error) {

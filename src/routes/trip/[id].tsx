@@ -12,7 +12,7 @@ import MdiLoading from "~icons/mdi/loading";
 import MdiWashingMachine from "~icons/mdi/washing-machine";
 import BulletPoint from "~/components/atoms/bullet-point";
 import DateSelector from "~/components/atoms/date-selector";
-import { APIResponseReservationAvailability } from "~/types/reservation";
+import { APIResponseBookingAvailability } from "~/types/bookings";
 import auth from "~/stores/auth";
 import Title from "~/meta/title";
 import { nDaysAfter } from "~/utils/dates";
@@ -58,19 +58,19 @@ export default function TripDetailsPage () {
   const [from, setFrom] = createSignal(new Date());
   const [to, setTo] = createSignal(nDaysAfter(new Date(), 2));
 
-  const [reservationLoading, setReservationLoading] = createSignal(false);
+  const [bookingLoading, setBookingLoading] = createSignal(false);
 
   createEffect(on([trip, from, to], async ([trip, from, to]) => {
     try {
       if (!trip) return;
-      setReservationLoading(true);
+      setBookingLoading(true);
 
-      const response = await ky.post(`/api/trip/${trip._id}/reservation`, {
+      const response = await ky.post(`/api/trip/${trip._id}/booking`, {
         json: {
           from,
           to
         }
-      }).json<APIResponseReservationAvailability>();
+      }).json<APIResponseBookingAvailability>();
 
       if (!response.success) {
         setAvailable(false);
@@ -83,16 +83,16 @@ export default function TripDetailsPage () {
       setAvailable(false);
     }
     finally {
-      setReservationLoading(false);
+      setBookingLoading(false);
     }
   }));
 
-  const handleReservation = async (event: SubmitEvent): Promise<void> => {
+  const handleBooking = async (event: SubmitEvent): Promise<void> => {
     event.preventDefault();
 
     try {
       if (!trip()) return;
-      setReservationLoading(true);
+      setBookingLoading(true);
 
       // si l'utilisateur n'est pas authentifié, il ne peut pas
       // faire de reservation donc on le redirige vers la page
@@ -102,7 +102,7 @@ export default function TripDetailsPage () {
         return;
       }
 
-      const response = await auth.http().put(`/api/trip/${trip()!._id}/reservation`, {
+      const response = await auth.http().put(`/api/trip/${trip()!._id}/booking`, {
         json: {
           amountOfPeople: amountOfPeople(),
           from: from(),
@@ -113,7 +113,7 @@ export default function TripDetailsPage () {
       console.log(response);
     }
     finally {
-      setReservationLoading(false);
+      setBookingLoading(false);
     }
   };
 
@@ -188,7 +188,7 @@ export default function TripDetailsPage () {
 
                 <form
                   class="p-4"
-                  onSubmit={handleReservation}
+                  onSubmit={handleBooking}
                 >
                   <div class="flex items-center justify-between gap-1 mb-4">
                     <div class="pl-2 flex flex-col">
@@ -229,10 +229,10 @@ export default function TripDetailsPage () {
                     class="text-white bg-#1D52A0  hover:bg-#1D52A0/90 focus:(outline-offset-3 outline-#1D52A0 bg-#1D52A0/90) text-center w-full px-4 py-2 rounded-full transition-colors"
                     classList={{
                       "disabled:(bg-red/20 text-#561010)": !available(),
-                      "disabled:(bg-gray-300 text-gray-900)": reservationLoading()
+                      "disabled:(bg-gray-300 text-gray-900)": bookingLoading()
                     }}
                   >
-                    <Show when={reservationLoading()}
+                    <Show when={bookingLoading()}
                       fallback={
                         available() ? "réserver" : "non disponible pour cette période"
                       }

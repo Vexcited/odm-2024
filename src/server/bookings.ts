@@ -1,12 +1,12 @@
-import { Reservation } from "~/models/reservation";
+import { Booking } from "~/models/booking";
 import { assertMongoConnection } from "./database";
 import { error } from "./errors";
 import { setDateToMidnight } from "~/utils/dates";
 
-export const checkReservationAvailability = async (tripId: string, from: Date, to: Date): Promise<boolean> => {
+export const checkBookingAvailability = async (tripId: string, from: Date, to: Date): Promise<boolean> => {
   await assertMongoConnection();
 
-  const reservations = await Reservation.find({
+  const bookings = await Booking.find({
     $or: [
       {
         from: { $lt: to },
@@ -17,17 +17,17 @@ export const checkReservationAvailability = async (tripId: string, from: Date, t
     trip: tripId
   });
 
-  return reservations.length === 0;
+  return bookings.length === 0;
 };
 
-export const parseReservationPeriod = (_from: string, _to: string): [from: Date, to: Date] => {
+export const parseBookingPeriod = (_from: string, _to: string): [from: Date, to: Date] => {
   const from = new Date(_from);
   const to = new Date(_to);
 
   if (from.getTime() >= to.getTime())
     throw error("la date de fin est après la date de début", 400);
 
-  // on remet l'heure à 0
+  // on remet l'heure à minuit
   setDateToMidnight(from);
   setDateToMidnight(to);
 

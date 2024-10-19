@@ -1,5 +1,5 @@
 import type { APIResponse } from "./response";
 
-export type APIResponseReservationAvailability = APIResponse<{
+export type APIResponseBookingAvailability = APIResponse<{
   available: boolean
 }>;

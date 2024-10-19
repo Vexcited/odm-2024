@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import type { IUser } from "./user";
 import type { ITrip } from "./trip";
 
-export interface IReservation {
+export interface IBooking {
   createdAt: Date
 
   user: IUser
@@ -14,7 +14,7 @@ export interface IReservation {
   amountOfPeople: number
 }
 
-const schema = new Schema<IReservation>({
+const schema = new Schema<IBooking>({
   createdAt: { type: Date, default: Date.now },
 
   user: { type: Schema.Types.ObjectId, ref: "User" },
@@ -26,4 +26,4 @@ const schema = new Schema<IReservation>({
   amountOfPeople: { type: Number, required: true }
 });
 
-export const Reservation = model<IReservation>("Reservation", schema);
+export const Booking = model<IBooking>("Booking", schema);

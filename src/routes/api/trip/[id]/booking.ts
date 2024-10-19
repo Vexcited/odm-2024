@@ -3,8 +3,8 @@ import { error, handleError } from "~/server/errors";
 import { json } from "~/server/response";
 import { Trip } from "~/models/trip";
 import { readBearer, readJSON } from "~/server/request";
-import { Reservation } from "~/models/reservation";
-import { checkReservationAvailability, parseReservationPeriod } from "~/server/reservations";
+import { Booking } from "~/models/booking";
+import { checkBookingAvailability, parseBookingPeriod } from "~/server/bookings";
 import { untokenizeUser } from "~/server/users";
 import { sendMail } from "~/server/mail";
 
@@ -15,8 +15,8 @@ export async function POST ({ params: { id }, request }: APIEvent) {
       to: string
     }>(request);
 
-    const [from, to] = parseReservationPeriod(body.from, body.to);
-    const available = await checkReservationAvailability(id, from, to);
+    const [from, to] = parseBookingPeriod(body.from, body.to);
+    const available = await checkBookingAvailability(id, from, to);
 
     return json({
       success: true,
@@ -52,8 +52,8 @@ export async function PUT ({ params: { id }, request }: APIEvent) {
     if (amountOfPeople < 1 || amountOfPeople > 4)
       return error("le nombre de personnes assignés à un séjour ne peut être en dessous de 1 ou au dessus de 4", 400);
 
-    const [from, to] = parseReservationPeriod(body.from, body.to);
-    const available = await checkReservationAvailability(id, from, to);
+    const [from, to] = parseBookingPeriod(body.from, body.to);
+    const available = await checkBookingAvailability(id, from, to);
 
     if (!available)
       return error("ce séjour a déjà été reservé pour la période donnée", 400);
@@ -62,14 +62,14 @@ export async function PUT ({ params: { id }, request }: APIEvent) {
     if (!trip)
       return error("le séjour demandé n'existe pas", 404);
 
-    const reservation = new Reservation({
+    const booking = new Booking({
       amountOfPeople,
       from, to,
       trip,
       user
     });
 
-    await reservation.save();
+    await booking.save();
     await sendMail(user.email,
       "Merci d'avoir reservé chez WorldSkills Travel",
       `Nous venons de recevoir votre réservation pour ${trip.title} du ${from.toLocaleDateString("fr-FR")} au ${to.toLocaleDateString("fr-FR")}.`
