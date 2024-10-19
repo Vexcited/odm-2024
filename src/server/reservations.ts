@@ -6,14 +6,13 @@ import { setDateToMidnight } from "~/utils/dates";
 export const checkReservationAvailability = async (tripId: string, from: Date, to: Date): Promise<boolean> => {
   await assertMongoConnection();
 
-  // on regarde s'il n'y a pas déjà une réservation entre "from" et "to".
   const reservations = await Reservation.find({
-    from: {
-      $gte: from
-    },
-    to: {
-      $gte: to
-    },
+    $or: [
+      {
+        from: { $lt: to },
+        to: { $gt: from }
+      }
+    ],
 
     trip: tripId
   });
@@ -31,6 +30,9 @@ export const parseReservationPeriod = (_from: string, _to: string): [from: Date,
   // on remet l'heure à 0
   setDateToMidnight(from);
   setDateToMidnight(to);
+
+  if (from.getTime() === to.getTime())
+    throw error("la date de début est la même que celle de fin");
 
   return [from, to];
 };
