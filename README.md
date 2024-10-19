@@ -18,7 +18,7 @@ Concernant la base de données, j'ai décidé d'aller vers MongoDB pour sa très
 - [x] Inscription (+ envoi d'un code OTP par e-mail pour confirmer l'inscription)
   - [x] Mot de passe hashé (bcrypt)
   - [x] Vérification de la validité de l'adresse e-mail
-  - [ ] Mot de passe >= 8 caractères (bonnes pratiques)
+  - [x] Mot de passe >= 8 caractères (bonnes pratiques)
 - [x] Connexion
 - [ ] Suppression de son compte
   - [ ] Entraine la suppression de toutes les réservations effectuées

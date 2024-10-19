@@ -37,6 +37,10 @@ export async function POST ({ request }: APIEvent) {
     }
     // l'utilisateur n'existe pas, on va lui créer un compte.
     else {
+      // on force la sécurité des mdp utilisateurs
+      if (body.password.length <= 8)
+        return error("le mot de passe doit faire au moins 8 caractères de long", 400);
+
       if (!body.otp) {
         const otp = generateOTP();
 
