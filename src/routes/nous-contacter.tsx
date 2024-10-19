@@ -29,7 +29,7 @@ export default function ContactPage () {
         }
       });
 
-      toast.success("Votre message a bien été envoyé !");
+      toast.success("votre message a bien été envoyé");
 
       batch(() => {
         setMessage("");
