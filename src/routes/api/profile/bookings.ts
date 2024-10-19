@@ -6,6 +6,10 @@ import { readBearer, readJSON } from "~/server/request";
 import { json } from "~/server/response";
 import { untokenizeUser } from "~/server/users";
 
+/**
+ * permet de récupérer les réservations effectuées
+ * par l'utilisateur.
+ */
 export async function GET ({ request }: APIEvent) {
   try {
     const token = readBearer(request);
@@ -29,6 +33,12 @@ export async function GET ({ request }: APIEvent) {
   }
 }
 
+/**
+ * supprime une réservation.
+ *
+ * si la réservation n'existe pas, on renvoie `true` quand même
+ * car cela ne change rien dans la base de données ou autre.
+ */
 export async function DELETE ({ request }: APIEvent) {
   try {
     const token = readBearer(request);

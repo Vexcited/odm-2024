@@ -7,6 +7,9 @@ import { readBearer, readJSON } from "~/server/request";
 import { json } from "~/server/response";
 import { untokenizeUser } from "~/server/users";
 
+/**
+ * permet de mettre à jour le profile utilisateur.
+ */
 export async function PATCH ({ request }: APIEvent) {
   try {
     const token = readBearer(request);
@@ -32,7 +35,9 @@ export async function PATCH ({ request }: APIEvent) {
   }
 }
 
-
+/**
+ * permet de supprimer le compte de l'utilisateur.
+ */
 export async function DELETE ({ request }: APIEvent) {
   try {
     const token = readBearer(request);

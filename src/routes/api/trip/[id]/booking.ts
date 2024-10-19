@@ -8,6 +8,9 @@ import { checkBookingAvailability, parseBookingPeriod } from "~/server/bookings"
 import { untokenizeUser } from "~/server/users";
 import { sendMail } from "~/server/mail";
 
+/**
+ * permet de vérifier la disponibilité d'un séjour
+ */
 export async function POST ({ params: { id }, request }: APIEvent) {
   try {
     const body = await readJSON<{
