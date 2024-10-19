@@ -6,7 +6,7 @@
 - [UnoCSS](https://unocss.dev), framework CSS dans le même esprit que TailwindCSS
 - [pnpm](https://pnpm.io), gestionnaire de dépendances rapide et efficace
 - [TypeScript](https://www.typescriptlang.org), JS mais typé pour assurer la qualité du code 
-- [MongoDB](https://www.mongodb.com), base de données NoSQLbonne
+- [MongoDB](https://www.mongodb.com), base de données NoSQL
 
 J'ai décidé de partir sur SolidStart puisque SolidJS est une librairie que j'admire pour réaliser mes interfaces.
 C'est pourquoi il me paraît évident de partir sur un framework fullstack qui utilise SolidJS pour le front-end.
