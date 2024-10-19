@@ -64,5 +64,5 @@ Nous utilisons le preset `node` par défaut.
 
 ```bash
 pnpm build
-node .output/server/index.mjs
+pnpm start
 ```

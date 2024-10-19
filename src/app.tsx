@@ -1,7 +1,4 @@
 import "@unocss/reset/tailwind.css";
-import "@fontsource/outfit/400.css";
-import "@fontsource/outfit/500.css";
-import "@fontsource/outfit/600.css";
 import "virtual:uno.css";
 
 import { Router } from "@solidjs/router";

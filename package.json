@@ -7,10 +7,9 @@
     "dev": "vinxi dev",
     "lint": "eslint . && tsc",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "node --env-file=.env .output/server/index.mjs"
   },
   "dependencies": {
-    "@fontsource/outfit": "^5.1.0",
     "@kobalte/core": "^0.13.7",
     "@solid-primitives/media": "^2.2.9",
     "@solidjs/meta": "^0.29.4",
