@@ -31,8 +31,12 @@ export default function ProfileAccountPage () {
         </h2>
 
         <div class="flex flex-col gap-8">
-          <Show when={!bookings.loading}>
-            <For each={bookings()}>
+          <Show when={!bookings.loading} fallback={
+            <div class="bg-gray-100 animate-duration-400 animate-pulse max-w-625px w-full h-250px container mx-auto rounded-xl" />
+          }>
+            <For each={bookings()} fallback={
+              <p>vous n'avez aucune réservation</p>
+            }>
               {(booking) => <BookingCard {...booking} />}
             </For>
           </Show>

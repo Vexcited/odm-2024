@@ -217,7 +217,7 @@ export default function SearchPage () {
       <Show when={!loading()}
         fallback={
           <For each={new Array(3).fill(null)}>
-            {() => <div class="bg-gray-100 animate-duration-400 animate-pulse max-w-625px w-full h-250px container mx-auto rounded-xl"></div>}
+            {() => <div class="bg-gray-100 animate-duration-400 animate-pulse max-w-625px w-full h-250px container mx-auto rounded-xl" />}
           </For>
         }
       >

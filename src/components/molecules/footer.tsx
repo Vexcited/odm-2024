@@ -7,11 +7,11 @@ const Footer: Component = () => {
       <div>
         <LongLogo />
 
-        <p class="mt-4">
+        <p class="mt-4 text-sm sm:text-base">
           La plateforme pour réserver des séjours chez l'habitant.
         </p>
 
-        <p class="text-black/65">
+        <p class="text-black/65 text-sm sm:text-base">
           Réalisé dans le cadre des Olympiades des Métiers 2024
         </p>
       </div>

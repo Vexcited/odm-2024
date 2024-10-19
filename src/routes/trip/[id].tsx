@@ -17,8 +17,7 @@ import auth from "~/stores/auth";
 import Title from "~/meta/title";
 import { nDaysAfter } from "~/utils/dates";
 import PeopleSelector from "~/components/molecules/people-selector";
-
-
+import toast from "solid-toast";
 
 const ServiceIcon: Component<{ type: ServiceType, class: string }> = (props) => {
   let Item: Component<{ class: string }>;
@@ -108,9 +107,15 @@ export default function TripDetailsPage () {
           from: from(),
           to: to()
         }
-      }).json();
+      }).json<{ success: boolean }>();
 
-      console.log(response);
+      if (response.success) {
+        toast.success(`vous venez de réserver ${trip()?.title}`);
+        navigate("/profile/reservations");
+        return;
+      }
+
+      toast.error("une erreur s'est produite lors de la réservation");
     }
     finally {
       setBookingLoading(false);

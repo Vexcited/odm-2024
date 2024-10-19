@@ -69,10 +69,8 @@ export default function AuthPage () {
       >
         <Show when={error()}>
           {(error) => (
-            <div>
-              <p>
-                {error()}
-              </p>
+            <div class="border rounded-xl p-4">
+              <p>{error()}</p>
             </div>
           )}
         </Show>
