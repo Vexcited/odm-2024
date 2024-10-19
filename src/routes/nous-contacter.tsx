@@ -41,7 +41,7 @@ export default function ContactPage () {
   };
 
   return (
-    <main>
+    <main class="px-6">
       <Title>
         nous contacter
       </Title>
