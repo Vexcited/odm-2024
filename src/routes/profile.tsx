@@ -8,7 +8,7 @@ import MdiMenu from "~icons/mdi/menu";
 export default function ProfilePage (props: RouteSectionProps) {
   const navigate = useNavigate();
 
-  const isSmall = createMediaQuery("(max-width: 639px)");
+  const isSmall = createMediaQuery("(max-width: 767px)");
   const [isOpenSmall, setOpenSmall] = createSignal(false);
 
   createEffect(() => {
@@ -28,7 +28,7 @@ export default function ProfilePage (props: RouteSectionProps) {
 
     return (
       <a href={props.href}
-        class="flex-shrink-0 w-fit sm:w-full hover:(bg-#1D52A0/8 text-#1D52A0) focus:(bg-#1D52A0/15 outline-#1D52A0) text-left font-500 px-4 py-2 rounded-full transition-colors"
+        class="flex-shrink-0 w-fit md:w-full hover:(bg-#1D52A0/8 text-#1D52A0) focus:(bg-#1D52A0/15 outline-#1D52A0) text-left font-500 px-4 py-2 rounded-full transition-colors"
         classList={{
           "bg-#1D52A0/5 text-#1D52A0": match() !== void 0
         }}
@@ -55,10 +55,10 @@ export default function ProfilePage (props: RouteSectionProps) {
 
   return (
     <Show when={!auth.loading && auth.isAuthenticated}>
-      <div class="container sm:( flex-row mx-auto px-10) relative flex flex-col gap-8">
+      <div class="w-full md:(flex-row mx-auto px-10) relative flex flex-col gap-8">
         <Show when={!isSmall()}>
           {/* barre de navigation */}
-          <div class=" sm:w-178px md:w-260px flex-shrink-0 flex flex-col gap-2">
+          <div class="md:w-180px lg:w-260px flex-shrink-0 flex flex-col gap-2">
             <LinksGroup />
 
             <DangerButton
@@ -77,7 +77,7 @@ export default function ProfilePage (props: RouteSectionProps) {
           </div>
         </Show>
 
-        <div class="w-full sm:min-h-screen px-6">
+        <div class="w-full md:min-h-screen px-6">
           {props.children}
         </div>
       </div>

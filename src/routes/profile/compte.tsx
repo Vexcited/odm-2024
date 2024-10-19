@@ -32,7 +32,7 @@ export default function ProfileAccountPage () {
       </Title>
 
       <main class="space-y-12">
-        <section class="max-w-300px mx-auto sm:mx-0">
+        <section class="max-w-400px mx-auto md:mx-0">
           <h2 class="mb-6 text-2xl font-500">
             mes informations
           </h2>
@@ -66,7 +66,7 @@ export default function ProfileAccountPage () {
           </form>
         </section>
 
-        <section class="max-w-300px mx-auto sm:mx-0">
+        <section class="max-w-400px mx-auto md:mx-0">
           <h2 class="my-6 text-2xl font-500">
             zone dangeureuse
           </h2>
@@ -83,7 +83,7 @@ export default function ProfileAccountPage () {
             <DangerButton
               type="button"
               onClick={handleLogout}
-              class="mt-6 sm:hidden "
+              class="mt-6 md:hidden"
             >
               se déconnecter
             </DangerButton>

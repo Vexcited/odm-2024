@@ -7,16 +7,16 @@ import MdiAccount from "~icons/mdi/account";
 
 const BookingCard: Component<IBooking> = (booking) => {
   return (
-    <div class="bg-white relative flex h-250px w-fit border-2 rounded-3xl">
+    <div class="bg-white relative flex flex-col lg:(flex-row h-250px w-fit) border-2 rounded-3xl transition-all">
       {/* encoche à gauche */}
-      <div class="h-8 w-8 bg-white border-2 rounded-full absolute -left-4 inset-y-0 my-auto" />
-      <div class="h-8 w-8 bg-white rounded-full absolute -left-6 inset-y-0 my-auto" />
+      <div class="hidden lg:block h-8 w-8 bg-white border-2 rounded-full absolute -left-4 inset-y-0 my-auto" />
+      <div class="hidden lg:block h-8 w-8 bg-white rounded-full absolute -left-6 inset-y-0 my-auto" />
 
-      <img class="w-300px h-full object-cover rounded-l-xl" src={`/cdn/${booking.trip.previewImage}`} />
-      <div class="w-320px flex flex-col justify-between p-4">
+      <img class="w-full max-h-400px object-cover rounded-3xl lg:(rounded-r-0 w-400px)" src={`/cdn/${booking.trip.previewImage}`} />
+      <div class="w-full lg:max-w-320px flex flex-col justify-between p-4">
         <div class="">
           <div class="flex justify-between gap-4">
-            <h2 class="font-500 text-xl line-height-tight">
+            <h2 class="font-500 text-xl line-height-tight truncate">
               {booking.trip.title}
             </h2>
             <p class="flex-shrink-0">
@@ -50,7 +50,7 @@ const BookingCard: Component<IBooking> = (booking) => {
           </div>
         </div>
 
-        <div class="flex gap-2">
+        <div class="flex w-full gap-2 mt-8 lg:mt-0">
           <button
             type="button"
             class="w-full text-#561010 hover:bg-red/10 focus:(bg-red/20 outline-#561010) text-center font-500 px-4 py-2 rounded-full transition-colors"
@@ -63,15 +63,15 @@ const BookingCard: Component<IBooking> = (booking) => {
             href={`/trip/${booking.trip._id}`}
             class="w-full text-#1D52A0 hover:bg-#1D52A0/10 focus:(bg-#1D52A0/20 outline-#1D52A0) text-center font-500 px-4 py-2 rounded-full transition-colors"
           >
-            voir annonce
+            annonce
           </a>
 
         </div>
       </div>
 
       {/* encoche à droite */}
-      <div class="h-8 w-8 bg-white border-2 rounded-full absolute -right-4 inset-y-0 my-auto" />
-      <div class="h-8 w-8 bg-white rounded-full absolute -right-6 inset-y-0 my-auto" />
+      <div class="hidden lg:block h-8 w-8 bg-white border-2 rounded-full absolute -right-4 inset-y-0 my-auto" />
+      <div class="hidden lg:block h-8 w-8 bg-white rounded-full absolute -right-6 inset-y-0 my-auto" />
     </div>
   );
 };

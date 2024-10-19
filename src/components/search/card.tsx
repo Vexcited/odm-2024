@@ -8,7 +8,7 @@ const SearchCard: Component<APITripItem> = (trip) => {
       <div class="hidden md:block h-8 w-8 bg-white border-2 rounded-full absolute -left-4 inset-y-0 my-auto" />
       <div class="hidden md:block h-8 w-8 bg-white rounded-full absolute -left-6 inset-y-0 my-auto" />
 
-      <img class="w-full max-h-400px max-w-320px sm:max-w-400px object-cover rounded-xl md:(rounded-r-0 w-300px)" src={`/cdn/${trip.previewImage}`} />
+      <img class="w-full max-h-400px max-w-320px sm:max-w-400px object-cover rounded-3xl md:(rounded-r-0 w-300px)" src={`/cdn/${trip.previewImage}`} />
       <div class="max-w-320px sm:max-w-400px w-full flex flex-col justify-between gap-6 p-4">
         <div>
           <div class="flex justify-between gap-4">
