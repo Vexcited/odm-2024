@@ -1,11 +1,34 @@
-import { type Component } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 import type { IBooking } from "~/models/booking";
 
 import MdiClockStart from "~icons/mdi/clock-start";
 import MdiClockEnd from "~icons/mdi/clock-end";
 import MdiAccount from "~icons/mdi/account";
+import auth from "~/stores/auth";
+import toast from "solid-toast";
 
-const BookingCard: Component<IBooking> = (booking) => {
+const BookingCard: Component<IBooking & { refresh: () => void }> = (booking) => {
+  const [loading, setLoading] = createSignal(false);
+
+  const handleCancelation = async () => {
+    try {
+      setLoading(true);
+
+      await auth.http().delete("/api/profile/bookings", {
+        json: {
+          // @ts-expect-error : non typé dans l'interface
+          id: booking._id
+        }
+      });
+
+      toast.success("votre réservation a bien été annulée");
+      booking.refresh();
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div class="bg-white relative flex flex-col lg:(flex-row h-250px w-fit) border-2 rounded-3xl transition-all">
       {/* encoche à gauche */}
@@ -53,6 +76,8 @@ const BookingCard: Component<IBooking> = (booking) => {
         <div class="flex w-full gap-2 mt-8 lg:mt-0">
           <button
             type="button"
+            disabled={loading()}
+            onClick={handleCancelation}
             class="w-full text-#561010 hover:bg-red/10 focus:(bg-red/20 outline-#561010) text-center font-500 px-4 py-2 rounded-full transition-colors"
           >
             annuler

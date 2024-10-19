@@ -5,7 +5,7 @@ import auth from "~/stores/auth";
 import type { APIResponseProfileBookings } from "~/types/profile";
 
 export default function ProfileAccountPage () {
-  const [bookings] = createResource(async () => {
+  const [bookings, { refetch }] = createResource(async () => {
     try {
       const response = await auth.http()
         .get("/api/profile/bookings")
@@ -37,7 +37,7 @@ export default function ProfileAccountPage () {
             <For each={bookings()} fallback={
               <p>vous n'avez aucune réservation</p>
             }>
-              {(booking) => <BookingCard {...booking} />}
+              {(booking) => <BookingCard {...booking} refresh={refetch} />}
             </For>
           </Show>
         </div>
